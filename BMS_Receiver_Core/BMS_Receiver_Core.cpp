@@ -8,6 +8,7 @@
 #include <sstream>
 #include "boost/property_tree/ptree.hpp"
 
+#include "JsonFormat_Utils.h"
 #include "BMS_Receiver_Core.h"
 
 using namespace std;
@@ -34,7 +35,6 @@ bool BMSReceiver::insertParamsData_JSON_String(std::string paramsData)
 	 return true;
 	}
 	return false;
-
 }
 
 void BMSReceiver::initializeParametersMap(boost::property_tree::ptree paramsData)
@@ -81,31 +81,8 @@ std::string BMSReceiver::get_ParamsDataStats_String()
 	return outputStr;
 }
 
-boost::property_tree::ptree BMSReceiver::convert_String_To_JSon(std::string data)
-{
-	std::stringstream input;
-	input.str(data);
-	boost::property_tree::ptree Jsondata;
-	boost::property_tree::json_parser::read_json(input,Jsondata);
 
-	return Jsondata;
-}
 
-bool BMSReceiver::isInput_in_JSONFormat(std::string data)
-{
-	try
-	{
-		std::stringstream input;
-		input.str(data);
-		boost::property_tree::ptree Jsondata;
-		boost::property_tree::json_parser::read_json(input,Jsondata);
-	}
-	catch (const boost::property_tree::ptree_error &e)
-	{
-		cout<<"ERROR : bad data"<<endl;
-		return false;
-	}
-	return true;
-}
+
 
 

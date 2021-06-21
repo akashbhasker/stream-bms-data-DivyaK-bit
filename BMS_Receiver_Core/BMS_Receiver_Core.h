@@ -23,13 +23,10 @@ public :
 	bool insertParamsData_JSON_String(std::string paramsData);
 	std::string get_ParamsDataStats_String();
 
-	static boost::property_tree::ptree convert_String_To_JSon(std::string data);
-
 private:
 
 	void initializeParametersMap(boost::property_tree::ptree paramsData);
 	void updateParametersMap_withData(boost::property_tree::ptree paramsData);
-	bool isInput_in_JSONFormat(std::string data);
 
 	std::unordered_map<std::string,ParameterData_Handler*> parametersMap;
 

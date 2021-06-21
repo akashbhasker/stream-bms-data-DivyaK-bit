@@ -10,17 +10,8 @@
 #include <iostream>
 
 #include "catch.hpp"
+#include "../BMS_Receiver_Core/JsonFormat_Utils.h"
 #include "../BMS_Receiver_Core/BMS_Receiver_Core.h"
-
-boost::property_tree::ptree getJsonFromString(std::string data)
-{
-	std::stringstream input;
-	input.str(data);
-	boost::property_tree::ptree Jsondata;
-	boost::property_tree::json_parser::read_json(input,Jsondata);
-
-	return Jsondata;
-}
 
 TEST_CASE("data Acceptance test - INVALID FORMART - EMPTY INPUT")
 {
@@ -90,10 +81,10 @@ TEST_CASE("data validation test - VALID DATA OUTPUT - MULTIPLE INPUTS with 2 Par
 {
 	BMSReceiver receiverTestObj;
 
-	std::string inputStr = "{\"Charge_rate\": 0.80, \"Temperature\": 80}";
+	std::string inputStr = "{\"Charge_rate\": 0.80, \"Temperature\": 40}";
 	REQUIRE(receiverTestObj.insertParamsData_JSON_String(inputStr) == true);
 
-	inputStr = "{\"Charge_rate\": 0.60, \"Temperature\": 60}";
+	inputStr = "{\"Charge_rate\": 0.60, \"Temperature\": 30}";
 	REQUIRE(receiverTestObj.insertParamsData_JSON_String(inputStr) == true);
 
 	std::string paramsStats_Str = receiverTestObj.get_ParamsDataStats_String();
@@ -113,7 +104,7 @@ TEST_CASE("data validation test - CHECK FOR STATS - SINGLE INPUTS with 1 Paramet
 	unsigned int delimiter_pos = paramsStats_Str.find('}');
 	std::string param_Charge_rate_str = paramsStats_Str.substr(0,delimiter_pos+1);
 
-	boost::property_tree::ptree Jsondata = getJsonFromString(param_Charge_rate_str);
+	boost::property_tree::ptree Jsondata = get_Json_From_String(param_Charge_rate_str);
 
 	REQUIRE(Jsondata.get<std::string>("ParameterName").compare("Temperature") == 0);
 	REQUIRE(Jsondata.get<std::string>("Current").compare("80") == 0);
@@ -134,7 +125,7 @@ TEST_CASE("data validation test - CHECK FOR STATS - 1 INPUT with 2 Parameters")
 	unsigned int delimiter_pos = paramsStats_Str.find('}');
 	std::string param_str = paramsStats_Str.substr(0,delimiter_pos+1);
 
-	boost::property_tree::ptree Jsondata = getJsonFromString(param_str);
+	boost::property_tree::ptree Jsondata = get_Json_From_String(param_str);
 
 	REQUIRE(Jsondata.get<std::string>("ParameterName").compare("Temperature") == 0);
 	REQUIRE(Jsondata.get<std::string>("Current").compare("50") == 0);
@@ -146,7 +137,7 @@ TEST_CASE("data validation test - CHECK FOR STATS - 1 INPUT with 2 Parameters")
 	unsigned int delimiter_pos_end = paramsStats_Str.find('}',delimiter_pos+1);
 	param_str = paramsStats_Str.substr(delimiter_pos_new,delimiter_pos_end);
 
-	Jsondata = getJsonFromString(param_str);
+	Jsondata = get_Json_From_String(param_str);
 
 	REQUIRE(Jsondata.get<std::string>("ParameterName").compare("Charge_rate") == 0);
 	REQUIRE(Jsondata.get<std::string>("Current").compare("1") == 0);
@@ -171,7 +162,7 @@ TEST_CASE("data validation test - CHECK FOR STATS - 2 INPUTS with 2 Parameters")
 	unsigned int delimiter_pos = paramsStats_Str.find('}');
 	std::string param_str = paramsStats_Str.substr(0,delimiter_pos+1);
 
-	boost::property_tree::ptree Jsondata = getJsonFromString(param_str);
+	boost::property_tree::ptree Jsondata = get_Json_From_String(param_str);
 
 	REQUIRE(Jsondata.get<std::string>("ParameterName").compare("Temperature") == 0);
 	REQUIRE(Jsondata.get<std::string>("Min").compare("50") == 0);
@@ -182,7 +173,7 @@ TEST_CASE("data validation test - CHECK FOR STATS - 2 INPUTS with 2 Parameters")
 	unsigned int delimiter_pos_end = paramsStats_Str.find('}',delimiter_pos+1);
 	param_str = paramsStats_Str.substr(delimiter_pos_new,delimiter_pos_end);
 
-	Jsondata = getJsonFromString(param_str);
+	Jsondata = get_Json_From_String(param_str);
 
 	REQUIRE(Jsondata.get<std::string>("ParameterName").compare("Charge_rate") == 0);
 	REQUIRE(Jsondata.get<std::string>("Min").compare("0") == 0);
