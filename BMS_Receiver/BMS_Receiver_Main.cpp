@@ -1,6 +1,6 @@
 /**************************************************************************************
 * @file        : BMS_Receiver_Main.cpp
-* @brief       :
+* @brief       : Provides Main for Receiver and Operates the Receiver object based on console Input
 *
 **************************************************************************************/
 
@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include <thread>
 #include <chrono>
-#include <unordered_map>
 
 #include "../BMS_Receiver_Core/BMS_Receiver_Core.h"
 
@@ -22,7 +21,6 @@ using namespace std;
 /**
  * Description     : Method to check and handle console input
  *                   Condition to start                  : console input as "START"
- *                   Condition to stop                   : console input as "STOP"
  *
  */
 bool checkFor_Start()
@@ -39,11 +37,20 @@ bool checkFor_Start()
 	}
 }
 
+/**
+ * Description     : Method to print data to console
+ *
+ */
 void printToConsole(std::string data)
 {
-	cout<<data;
+	std::cout<<data;
 }
 
+/**
+ * Description     : Method to read and update and print stats for the Parameters data from console
+ *                   Also checks for Condition to Receiver Thread : console input as "STOP"
+ *
+ */
 void receiveParametersData()
 {
 	std::string input;
@@ -64,6 +71,9 @@ void receiveParametersData()
 
 /**
  * Description     : Main Method
+ *                   Starts Receiver Thread Once Start Condition is Satisfied
+ *                   Process Received Parameters data
+ *                   Stops  Receiver Thread Once Stop Condition is Satisfied
  *
  */
 int main()

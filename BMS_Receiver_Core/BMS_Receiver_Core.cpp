@@ -13,38 +13,52 @@
 
 using namespace std;
 
-#define PARAMDATA_BUFFER_SIZE 5
+#define CONFIG_DATA_BUFFER_SIZE 5
 
-
+/**
+ * Description     : Constructor
+ *
+ */
 BMSReceiver::BMSReceiver()
 {
 
 }
 
+/**
+ * Description     : Destructor
+ *
+ */
 BMSReceiver::~BMSReceiver()
 {
 
 }
 
+/**
+ * Description     : Method to insert and process Values of parameters received from Sender
+ *                   Accepted Format : JSON String : {"Parameter1" : "Data1" , "Parameter2" : "Data2" . ...}
+ *                   Accepted Number of Parameters : Any
+ *                   Accepted Number of value for each parameter : One
+ *
+ *                   Return False if input is not in JSON String format
+ *
+ */
 bool BMSReceiver::insertParamsData_JSON_String(std::string paramsData)
 {
 	if(isInput_in_JSONFormat(paramsData))
 	{
-	 boost::property_tree::ptree Jsondata = convert_String_To_JSon(paramsData);
+	 boost::property_tree::ptree Jsondata = get_Json_From_String(paramsData);
 	 updateParametersMap_withData(Jsondata);
 	 return true;
 	}
 	return false;
 }
 
-void BMSReceiver::initializeParametersMap(boost::property_tree::ptree paramsData)
-{
-	for (boost::property_tree::ptree::const_iterator it = paramsData.begin(); it != paramsData.end(); ++it)
-	{
-		parametersMap[it->first] = new ParameterData_Handler(PARAMDATA_BUFFER_SIZE);
-	}
-}
 
+/**
+ * Description     : Method to update received values of various parameters
+ *                   Expects Same Parameters to be updated each time
+ *
+ */
 void BMSReceiver::updateParametersMap_withData(boost::property_tree::ptree paramsData)
 {
 	if(parametersMap.empty())
@@ -59,6 +73,29 @@ void BMSReceiver::updateParametersMap_withData(boost::property_tree::ptree param
 	}
 }
 
+/**
+ * Description     : Method to initialize parameter map
+ *                   Each input parameter will be assigned with ParameterData_Handler object to provide storage and computation
+ *
+ */
+void BMSReceiver::initializeParametersMap(boost::property_tree::ptree paramsData)
+{
+	for (boost::property_tree::ptree::const_iterator it = paramsData.begin(); it != paramsData.end(); ++it)
+	{
+		parametersMap[it->first] = new ParameterData_Handler(CONFIG_DATA_BUFFER_SIZE);
+	}
+}
+
+
+/**
+ * Description     : Method to get All Parameters Stats in Sring Format
+ *                   Return Format : String containing JSON Formatted stats of All Parameters
+ *                                 : {"ParameterName" : "Parameter1" , "Current" : CurrentValue , "Min" : minValue , "Max" : maxValue , "Avg" : runningAvg }
+ *                                   {"ParameterName" : "Parameter2" , "Current" : CurrentValue , "Min" : minValue , "Max" : maxValue , "Avg" : runningAvg }
+ *                                   ...
+ *                   Returns Empty String if No Data Available
+ *
+ */
 std::string BMSReceiver::get_ParamsDataStats_String()
 {
 	std::string outputStr;

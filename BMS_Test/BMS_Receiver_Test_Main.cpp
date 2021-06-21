@@ -1,10 +1,8 @@
-/*
- * BMS_Receiver_main.cpp
- *
- *  Created on: Jun 19, 2021
- *      Author: ahk7kor
- */
-
+/**************************************************************************************
+* @file        : BMS_Receiver_Test_Main.cpp
+* @brief       : Provides Test Functionality for BMS Receiver Core
+*
+**************************************************************************************/
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 
 #include <iostream>

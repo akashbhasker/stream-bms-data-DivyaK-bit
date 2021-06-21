@@ -1,9 +1,8 @@
-/*
- * ParameterData_StatsCompute.h
- *
- *  Created on: Jun 20, 2021
- *      Author: ahk7kor
- */
+/**************************************************************************************
+* @file        : ParameterData_StatsCompute.h
+* @brief       : Provides Functionality to compute various statistics of Parameter Data
+*
+**************************************************************************************/
 
 #ifndef RECEIVER_PARAMETERDATA_STATSCOMPUTE_H_
 #define RECEIVER_PARAMETERDATA_STATSCOMPUTE_H_
@@ -17,24 +16,24 @@ public :
 	ParameterData_Statistics(unsigned int bufferSize);
 	virtual ~ParameterData_Statistics();
 
-	virtual void insert(double inputValue);
-	double getCurrentValue();
-	double getRunningAvg();
-	double getMaxVal();
-	double getMinVal();
+	virtual void insert(float inputValue);
+	float getCurrentValue();
+	float getRunningAvg();
+	float getMaxVal();
+	float getMinVal();
 
 private :
 
-	void updateMin(double inputValue);
-	void updateMax(double inputValue);
-	void updateRunningTotal(double inputValue);
-	void updateBuffer(double inputValue);
+	void updateMin(float inputValue);
+	void updateMax(float inputValue);
+	void updateRunningTotal(float inputValue);
+	void updateBuffer(float inputValue);
 
 	unsigned int windowSize;
-	double runningTotal;
-	double maxVal;
-	double minVal;
-	std::queue<double> buffer;
+	float runningTotal;
+	float maxVal;
+	float minVal;
+	std::queue<float> buffer;
 };
 
 

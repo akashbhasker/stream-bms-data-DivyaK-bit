@@ -1,9 +1,8 @@
-/*
- * BatteryParameter_DataHandler.h
- *
- *  Created on: Jun 21, 2021
- *      Author: ahk7kor
- */
+/**************************************************************************************
+* @file        : BatteryParameter_DataHandler.h
+* @brief       : Provides Functionality to Handle each Parameters Data
+*
+**************************************************************************************/
 
 #ifndef BATTERYPARAMETER_DATAHANDLER_H_
 #define BATTERYPARAMETER_DATAHANDLER_H_
@@ -16,7 +15,7 @@ public :
 	ParameterData_Handler(unsigned int bufferSize);
 	virtual ~ParameterData_Handler();
 
-	virtual void insert(double inputValue);
+	virtual void insert(float inputValue);
 };
 
 

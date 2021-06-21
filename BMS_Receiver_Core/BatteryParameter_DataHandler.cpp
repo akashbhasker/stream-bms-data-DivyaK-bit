@@ -1,25 +1,35 @@
-/*
- * BatteryParameter_DataHandler.cpp
- *
- *  Created on: Jun 21, 2021
- *      Author: ahk7kor
- */
-
+/**************************************************************************************
+* @file        : BatteryParameter_DataHandler.cpp
+* @brief       : Provides Functionality to Handle each Parameters Data
+*
+**************************************************************************************/
 
 #include "BatteryParameter_DataHandler.h"
 
+/**
+ * Description     : Constructor
+ *
+ */
 ParameterData_Handler::ParameterData_Handler(unsigned int bufferSize)
 : ParameterData_Statistics(bufferSize)
 {
 
 }
 
+/**
+ * Description     : Destructor
+ *
+ */
 ParameterData_Handler::~ParameterData_Handler()
 {
 
 }
 
-void ParameterData_Handler::insert(double inputValue)
+/**
+ * Description     : Method to insert data to handle Parameter Statistics
+ *
+ */
+void ParameterData_Handler::insert(float inputValue)
 {
 	ParameterData_Statistics::insert(inputValue);
 }

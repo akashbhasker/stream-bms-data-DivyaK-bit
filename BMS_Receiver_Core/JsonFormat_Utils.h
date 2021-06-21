@@ -1,9 +1,8 @@
-/*
- * JsonFormat_Utils.h
- *
- *  Created on: Jun 21, 2021
- *      Author: ahk7kor
- */
+/**************************************************************************************
+* @file        : JsonFormat_Utils.h
+* @brief       : Provides Utility Functionals for handling JSON data
+*
+**************************************************************************************/
 
 #ifndef BMS_RECEIVER_CORE_JSONFORMAT_UTILS_H_
 #define BMS_RECEIVER_CORE_JSONFORMAT_UTILS_H_
