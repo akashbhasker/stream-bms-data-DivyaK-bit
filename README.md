@@ -84,6 +84,7 @@ Output Format : JSON String  : { "ParamterName_1" : Data_1 , "ParamterName_2" : 
 Stop Key  : STOP
 
 Screenshot :
+
 ![Screenshot](Sender_ForReceiver.png)
 
 ## Receiver Interface
@@ -101,9 +102,10 @@ Provided Stats:
 - Running Average for a defined Window
 
 Sceenshot :
+
 ![Screenshot](Receiver.png)
 
-### Sender - Receiver Interface
+## Sender - Receiver Interface
 Both Sender and Receiver have been designed to seamlessly integrate and interact with Each Other
 Both Work on Common JSON Format and Accept Any number of Parameters with One Value for each Parameter
 
